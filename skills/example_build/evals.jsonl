@@ -1,0 +1,3 @@
+{"input":"Implement the parser fix and test it","expected_route":"sasteratech.build.verified","kind":"positive"}
+{"input":"Research parser design approaches only","expected_route":null,"kind":"negative"}
+{"input":"Deploy this branch to production","expected_route":null,"kind":"negative"}

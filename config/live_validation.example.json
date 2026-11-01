@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "runtime_pins": {
+    "pydantic-ai": "2.63.0",
+    "pydantic-ai-harness": "0.63.0"
+  },
+  "default_probe_model_env": "SASTERATECH_PROBE_MODEL",
+  "default_probe_model": "deepseek:deepseek-flash",
+  "provider_matrix": [],
+  "real_shadow_dataset": "C:\\SasteraTechRuntime\\SASTERATECH_AGENT_RUNTIME_v1_0\\live_inputs\\real_shadow.jsonl",
+  "slo": {
+    "minimum_samples": 20,
+    "max_error_rate": 0,
+    "max_p95_latency_seconds": 30,
+    "max_mean_cost_usd": 0.01
+  },
+  "hard_invariants": {
+    "unauthorized_mutations_max": 0,
+    "high_risk_false_negatives_max": 0
+  }
+}

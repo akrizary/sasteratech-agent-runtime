@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ToolDefinition",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "risk",
+    "side_effect",
+    "requires_approval"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "risk": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    "side_effect": {
+      "type": "boolean"
+    },
+    "idempotent": {
+      "type": "boolean"
+    },
+    "reversible": {
+      "type": "boolean"
+    },
+    "network": {
+      "type": "boolean"
+    },
+    "secrets": {
+      "type": "boolean"
+    },
+    "dry_run": {
+      "type": "boolean"
+    },
+    "requires_approval": {
+      "type": "boolean"
+    },
+    "evidence_emitted": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

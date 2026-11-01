@@ -1,0 +1,20 @@
+{
+  "role": "DOMAIN_SPECIALIST",
+  "allowed_tasks": [
+    "FACT_QUERY",
+    "RESEARCH",
+    "REVIEW"
+  ],
+  "risk_ceiling": "R0",
+  "allow_tools": [
+    "evidence.read",
+    "file.read"
+  ],
+  "deny_tools": [
+    "file.write",
+    "deploy.*",
+    "email.send"
+  ],
+  "may_delegate_to": [],
+  "independent_review": false
+}

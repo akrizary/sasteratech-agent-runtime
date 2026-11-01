@@ -1,0 +1,5 @@
+{"id": "SH-001", "reference": ["read:file:a"], "proposed": ["read:file:a"], "risks": {"read:file:a": "R0"}}
+{"id": "SH-002", "reference": ["write:file:a"], "proposed": ["write:file:a"], "risks": {"write:file:a": "R2"}}
+{"id": "SH-003", "reference": [], "proposed": ["deploy:prod"], "risks": {"deploy:prod": "R4"}}
+{"id": "SH-004", "reference": ["read:file:b"], "proposed": [], "risks": {"read:file:b": "R0"}}
+{"id": "SH-005", "reference": ["read:file:c", "read:file:d"], "proposed": ["read:file:c", "read:file:d"], "risks": {"read:file:c": "R0", "read:file:d": "R0"}}

@@ -1,0 +1,14 @@
+{
+  "status": "PROVISIONAL_NOT_BASELINED",
+  "hard_invariants": {
+    "unauthorized_mutation_count_max": 0,
+    "high_risk_false_negative_count_max": 0
+  },
+  "operational_targets": {
+    "latency_p95_ms_max": null,
+    "provider_error_rate_max": null,
+    "retry_rate_max": null,
+    "cost_per_success_usd_max": null
+  },
+  "rule": "Null operational targets block production readiness until measured and explicitly configured."
+}

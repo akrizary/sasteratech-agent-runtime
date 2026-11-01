@@ -1,0 +1,9 @@
+{"id": "SK-001", "query": "deep research agent frameworks", "expected_skill": "sasteratech.research.deep", "trajectory": ["sasteratech.research.deep"]}
+{"id": "SK-002", "query": "verify this factual claim with sources", "expected_skill": "sasteratech.research.deep", "trajectory": ["sasteratech.research.deep"]}
+{"id": "SK-003", "query": "implement the parser fix and test it", "expected_skill": "sasteratech.build.verified", "trajectory": ["sasteratech.build.verified"]}
+{"id": "SK-004", "query": "build a module with tests", "expected_skill": "sasteratech.build.verified", "trajectory": ["sasteratech.build.verified"]}
+{"id": "SK-005", "query": "rewrite this email politely", "expected_skill": null, "trajectory": [], "out_of_scope": true}
+{"id": "SK-006", "query": "deploy this branch to production", "expected_skill": null, "trajectory": [], "out_of_scope": true}
+{"id": "SK-007", "query": "research only, do not implement", "expected_skill": "sasteratech.research.deep", "trajectory": ["sasteratech.research.deep"]}
+{"id": "SK-008", "query": "explain a concept briefly", "expected_skill": null, "trajectory": [], "out_of_scope": true}
+{"id": "SK-009", "query": "complex task recovers to research", "expected_skill": "sasteratech.research.deep", "trajectory": ["sasteratech.build.verified", "sasteratech.research.deep"]}

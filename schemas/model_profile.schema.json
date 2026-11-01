@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModelProfile",
+  "type": "object",
+  "required": [
+    "alias",
+    "adapter_id"
+  ],
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "adapter_id": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "model_env": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "allowed_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  }
+}

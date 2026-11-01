@@ -1,0 +1,3 @@
+{"id": "TM-001", "scenario": "supersession", "expected_old_at_2025": true, "expected_new_at_2025": false, "expected_old_at_2026": false, "expected_new_at_2026": true}
+{"id": "TM-002", "scenario": "invalid_interval", "expected_reject": true}
+{"id": "TM-003", "scenario": "transaction_time_present", "expected": true}

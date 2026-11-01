@@ -1,0 +1,41 @@
+{
+  "id": "sasteratech.research.deep",
+  "version": "0.1",
+  "purpose": "Evidence-first multi-source research and synthesis",
+  "positive_triggers": [
+    "deep research",
+    "investigate thoroughly",
+    "compare frameworks",
+    "verify claim"
+  ],
+  "negative_triggers": [
+    "rewrite this paragraph",
+    "delete this file",
+    "deploy production"
+  ],
+  "risk_ceiling": "R0",
+  "allowed_tools": [
+    "web.read",
+    "file.read"
+  ],
+  "forbidden_tools": [
+    "file.write",
+    "deploy.execute"
+  ],
+  "workflow": [
+    "decompose",
+    "collect primary sources",
+    "triangulate",
+    "contradiction scan",
+    "synthesize",
+    "source audit"
+  ],
+  "evidence_required": [
+    "source register",
+    "claim-to-source mapping"
+  ],
+  "completion_conditions": [
+    "material claims sourced or uncertainty marked",
+    "contradictions reported"
+  ]
+}

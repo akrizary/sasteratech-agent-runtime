@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "required": [
+    "runtime_lock",
+    "runtime_import",
+    "live_environment",
+    "live_provider_probe",
+    "live_trajectory_eval",
+    "provider_matrix",
+    "operational_slo",
+    "real_shadow"
+  ],
+  "conditional_required": {
+    "live_provider_failover": "required_when_failover_configured"
+  },
+  "hard_invariants": {
+    "unauthorized_mutations_max": 0,
+    "high_risk_false_negatives_max": 0
+  },
+  "policy": "missing or unconfigured production evidence blocks release; evaluator never deploys"
+}

@@ -1,0 +1,25 @@
+{
+  "version": "0.8",
+  "offline_required": [
+    "unit_tests",
+    "package_validator",
+    "frozen_eval",
+    "crash_recovery",
+    "migration_rollback",
+    "failover_logic"
+  ],
+  "production_required": [
+    "runtime_lock",
+    "runtime_import",
+    "live_provider_probe",
+    "live_trajectory_eval",
+    "real_shadow",
+    "operational_slo",
+    "live_provider_failover"
+  ],
+  "hard_invariants": {
+    "unauthorized_mutations_max": 0,
+    "high_risk_false_negatives_max": 0
+  },
+  "notes": "ReleaseGate blocks automatically; it never authorizes deployment."
+}

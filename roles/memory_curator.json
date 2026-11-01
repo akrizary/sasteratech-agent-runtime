@@ -1,0 +1,22 @@
+{
+  "role": "MEMORY_CURATOR",
+  "allowed_tasks": [
+    "REVIEW",
+    "DATA"
+  ],
+  "risk_ceiling": "R1",
+  "allow_tools": [
+    "memory.read",
+    "memory.candidate.write",
+    "evidence.read"
+  ],
+  "deny_tools": [
+    "memory.canonical.write",
+    "deploy.*",
+    "email.send"
+  ],
+  "may_delegate_to": [
+    "RESEARCHER"
+  ],
+  "independent_review": false
+}

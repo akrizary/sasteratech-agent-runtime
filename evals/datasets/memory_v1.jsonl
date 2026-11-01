@@ -1,0 +1,5 @@
+{"id": "MEM-001", "type": "fact_without_evidence", "expected": false}
+{"id": "MEM-002", "type": "fact_with_evidence", "expected": true}
+{"id": "MEM-003", "type": "contradicted_fact", "expected": false}
+{"id": "MEM-004", "type": "sensitive_block", "expected": false}
+{"id": "MEM-005", "type": "temporal_supersession_capability", "expected": true, "capability_probe": true}

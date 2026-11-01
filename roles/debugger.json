@@ -1,0 +1,24 @@
+{
+  "role": "DEBUGGER",
+  "allowed_tasks": [
+    "DEBUG"
+  ],
+  "risk_ceiling": "R2",
+  "allow_tools": [
+    "file.read",
+    "file.write",
+    "shell.test",
+    "evidence.read"
+  ],
+  "deny_tools": [
+    "deploy.*",
+    "email.send",
+    "payment.*"
+  ],
+  "may_delegate_to": [
+    "RESEARCHER",
+    "REVIEWER",
+    "VERIFIER"
+  ],
+  "independent_review": true
+}

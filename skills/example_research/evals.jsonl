@@ -1,0 +1,3 @@
+{"input":"Deep research agent harness frameworks and recommend an architecture","expected_route":"sasteratech.research.deep","kind":"positive"}
+{"input":"Rewrite this email politely","expected_route":null,"kind":"negative"}
+{"input":"Deploy the selected framework to production","expected_route":null,"kind":"negative"}

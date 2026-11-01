@@ -1,0 +1,22 @@
+{
+  "role": "REVIEWER",
+  "allowed_tasks": [
+    "REVIEW"
+  ],
+  "risk_ceiling": "R0",
+  "allow_tools": [
+    "file.read",
+    "shell.test",
+    "evidence.read"
+  ],
+  "deny_tools": [
+    "file.write",
+    "deploy.*",
+    "email.send"
+  ],
+  "may_delegate_to": [
+    "RESEARCHER",
+    "DOMAIN_SPECIALIST"
+  ],
+  "independent_review": false
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClaimRecord",
+  "type": "object",
+  "required": [
+    "claim_id",
+    "claim",
+    "status",
+    "evidence"
+  ],
+  "properties": {
+    "claim_id": {
+      "type": "string"
+    },
+    "claim": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "VERIFIED",
+        "SUPPORTED",
+        "PROVISIONAL",
+        "INTERPRETATION",
+        "UNKNOWN",
+        "CONTRADICTED"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observed_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EffectRecord",
+  "type": "object",
+  "required": [
+    "effect_id",
+    "run_id",
+    "action_id",
+    "tool_id",
+    "resource",
+    "idempotent",
+    "status"
+  ],
+  "properties": {
+    "status": {
+      "enum": [
+        "RESERVED",
+        "STARTED",
+        "SUCCEEDED",
+        "VERIFIED",
+        "FAILED",
+        "UNKNOWN"
+      ]
+    },
+    "idempotency_key": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

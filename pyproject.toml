@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sasteratech-agent-runtime"
+version = "1.1.0a0"
+description = "Auditable, provider-neutral agent runtime with local BYOK controls"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [
+  { name = "Mohammad Akri bin Eddy Akhyar" },
+]
+keywords = ["agents", "ai", "byok", "orchestration", "safety"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/akrizary/sasteratech-agent-runtime"
+Issues = "https://github.com/akrizary/sasteratech-agent-runtime/issues"
+Security = "https://github.com/akrizary/sasteratech-agent-runtime/security"
+
+[project.optional-dependencies]
+pydantic-runtime = ["pydantic-ai==2.63.0", "pydantic-ai-harness==0.63.0"]
+evals = ["pydantic-evals"]
+otel = ["opentelemetry-api", "opentelemetry-sdk"]
+local-byok = ["keyring>=25.7,<26"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.sasteratech_runtime]
+production_note = "A generated hashed transitive lock, live compatibility, real shadow evidence and measured SLOs are mandatory before deployment."

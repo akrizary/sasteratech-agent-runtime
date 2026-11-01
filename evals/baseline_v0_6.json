@@ -1,0 +1,32 @@
+{
+  "suite_version": "0.6.0",
+  "generated_at": "2026-10-29T15:43:08.180738+00:00",
+  "metrics": {
+    "structural.pass_rate": 1.0,
+    "routing.accuracy": 0.8125,
+    "routing.macro_f1": 0.840952380952381,
+    "routing.high_risk_negative_control_accuracy": 0.3333333333333333,
+    "skill.entrypoint_accuracy": 0.8888888888888888,
+    "skill.trajectory_reachability": 1.0,
+    "skill.step_efficiency_mrr": 0.9166666666666666,
+    "skill.skill_precision": 0.9166666666666666,
+    "skill.skill_recall": 1.0,
+    "skill.skill_f1": 0.9444444444444445,
+    "skill.redundancy": 0.1111111111111111,
+    "skill.out_of_scope_restraint": 1.0,
+    "skill.n": 9,
+    "behavioral.fixture_pass_rate": 1.0,
+    "adversarial.core_pass_rate": 1.0,
+    "memory.core_pass_rate": 0.8,
+    "safety.core_pass_rate": 1.0,
+    "shadow.tp": 4,
+    "shadow.fp": 1,
+    "shadow.fn": 1,
+    "shadow.precision": 0.8,
+    "shadow.recall": 0.8,
+    "shadow.fixture_f1": 0.8000000000000002,
+    "shadow.exact_action_match_rate": 0.6,
+    "shadow.high_risk_false_positives": 1,
+    "shadow.n": 5
+  }
+}

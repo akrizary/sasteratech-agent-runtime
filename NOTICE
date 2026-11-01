@@ -1,0 +1,12 @@
+SasteraTech Agent Runtime
+Copyright 2026 Mohammad Akri bin Eddy Akhyar
+
+This product includes project-authored source code licensed under the Apache
+License, Version 2.0. Third-party Python packages are not vendored in this
+source repository and retain their respective licences. Dependency names,
+versions and licence metadata are listed in THIRD_PARTY_NOTICES.md and
+sbom.cdx.json.
+
+SasteraTech and SasteraTech Agent Runtime are project identifiers. Apache
+License 2.0 does not grant trademark rights except for reasonable descriptive
+use as stated in section 6 of the licence.

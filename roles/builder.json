@@ -1,0 +1,24 @@
+{
+  "role": "BUILDER",
+  "allowed_tasks": [
+    "BUILD"
+  ],
+  "risk_ceiling": "R2",
+  "allow_tools": [
+    "file.read",
+    "file.write",
+    "shell.test",
+    "artifact.write"
+  ],
+  "deny_tools": [
+    "deploy.*",
+    "email.send",
+    "payment.*"
+  ],
+  "may_delegate_to": [
+    "DEBUGGER",
+    "REVIEWER",
+    "VERIFIER"
+  ],
+  "independent_review": true
+}

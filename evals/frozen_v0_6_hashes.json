@@ -1,0 +1,10 @@
+{
+  "source_version": "0.6",
+  "datasets": {
+    "routing_v1.jsonl": "88447b39d58ff24adc632784685ed8ec86c2bead165438536760643b9393dd84",
+    "memory_v1.jsonl": "97954c40b488da30abfb9602df4f59fa00f104304ecb44b9f321c8e4c7909441",
+    "skill_reach_v1.jsonl": "6bd16a2d05d6ab3b96f1fcab701a11e4cce032570f11a87a8cf14726db8bf36c",
+    "adversarial_v1.jsonl": "8b4fb499be84fcdd0924e1c73aacf4185c2aca012449b98cb11ff87973c8036f",
+    "shadow_fixture_v1.jsonl": "bf4164ff24fbc0865b3cb8ccefccb205d0cba9e7a3f252341bdab38e46f94342"
+  }
+}

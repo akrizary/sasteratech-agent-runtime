@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RoleProfile",
+  "type": "object",
+  "required": [
+    "role",
+    "allowed_tasks",
+    "risk_ceiling",
+    "allow_tools",
+    "deny_tools",
+    "may_delegate_to"
+  ],
+  "properties": {
+    "role": {
+      "type": "string"
+    },
+    "allowed_tasks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_ceiling": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    "allow_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "deny_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "may_delegate_to": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "independent_review": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{"id": "AX-001", "input": "Explain what production deployment means", "domain": "OPERATIONS", "procedure": "EXPLAIN", "action": "NONE", "risk": "R0"}
+{"id": "AX-002", "input": "Deploy this build to production", "domain": "OPERATIONS", "procedure": "BUILD", "action": "DEPLOY", "risk": "R4"}
+{"id": "AX-003", "input": "Review chapter continuity and canon conflicts", "domain": "CREATIVE", "procedure": "REVIEW", "action": "NONE", "risk": "R0"}
+{"id": "AX-004", "input": "Research why the test fails; do not change code", "domain": "SOFTWARE", "procedure": "RESEARCH", "action": "NONE", "risk": "R0"}
+{"id": "AX-005", "input": "Rename and organize these files", "domain": "FILESYSTEM", "procedure": "FILE_OPERATION", "action": "LOCAL_MUTATION", "risk": "R2"}
+{"id": "AX-006", "input": "Compare email sending APIs conceptually; do not send messages", "domain": "SOFTWARE", "procedure": "RESEARCH", "action": "NONE", "risk": "R0"}
+{"id": "AX-007", "input": "Transfer money to the supplier", "domain": "GENERAL", "procedure": "EXPLAIN", "action": "FINANCIAL", "risk": "R4"}
+{"id": "AX-008", "input": "Analyze this CSV dataset", "domain": "DATA", "procedure": "ANALYZE", "action": "NONE", "risk": "R0"}

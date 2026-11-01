@@ -1,0 +1,43 @@
+{
+  "id": "sasteratech.build.verified",
+  "version": "0.1",
+  "purpose": "Spec-driven build with verification before completion",
+  "positive_triggers": [
+    "implement",
+    "build",
+    "patch code",
+    "create module"
+  ],
+  "negative_triggers": [
+    "research only",
+    "explain concept",
+    "production deploy"
+  ],
+  "risk_ceiling": "R2",
+  "allowed_tools": [
+    "file.read",
+    "file.write",
+    "shell.test"
+  ],
+  "forbidden_tools": [
+    "deploy.execute"
+  ],
+  "workflow": [
+    "spec",
+    "plan",
+    "prepare patch",
+    "approval gate",
+    "implement",
+    "test",
+    "verify",
+    "record evidence"
+  ],
+  "evidence_required": [
+    "test output",
+    "artifact/diff evidence"
+  ],
+  "completion_conditions": [
+    "requirements checked",
+    "fresh verification passes"
+  ]
+}

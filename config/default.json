@@ -1,0 +1,82 @@
+{
+  "system": "sasteratech-agent-runtime",
+  "version": "0.7",
+  "default_state": "STATE_0_READ_ONLY_AUDIT",
+  "default_risk_ceiling": "R0",
+  "llm_may_grant_high_risk_approval": false,
+  "subagent_inherit_tools": false,
+  "subagent_inherit_history": false,
+  "max_delegation_depth": 2,
+  "require_fresh_evidence_for_completion": true,
+  "memory_auto_promote_to_canonical": false,
+  "preferred_runtime_adapter": "pydantic_ai",
+  "adapter_fallbacks": [
+    "microsoft_agent_framework",
+    "mastra",
+    "langgraph"
+  ],
+  "storage": {
+    "backend": "sqlite",
+    "path": "state/sasteratech_runtime.db",
+    "wal": true,
+    "foreign_keys": true
+  },
+  "limits": {
+    "context_token_budget": 16000,
+    "max_plan_tasks": 500,
+    "max_event_payload_bytes": 1048576,
+    "max_delegation_depth": 2
+  },
+  "artifact_registry": {
+    "hash_algorithm": "sha256",
+    "verify_on_register": true
+  },
+  "agents": {
+    "max_delegation_depth": 2,
+    "inherit_parent_history": false,
+    "inherit_parent_tools": false,
+    "independent_verification_for": [
+      "BUILD",
+      "DEBUG"
+    ],
+    "role_manifest_dir": "roles"
+  },
+  "runtime": {
+    "default_adapter": "mock",
+    "production_preferred_adapter": "pydantic_ai",
+    "allow_model_tools": false,
+    "allow_runtime_self_authorization": false,
+    "persist_runtime_calls": true,
+    "checkpoint_after_runtime_call": true
+  },
+  "telemetry": {
+    "sink": "null",
+    "redact_secrets": true
+  },
+  "immune_system": {
+    "enabled": true,
+    "llm_judge_may_grant_r2_plus": false,
+    "human_required_from_risk": "R2",
+    "prompt_injection_high_action": "withhold",
+    "block_secret_network_exfiltration": true,
+    "require_post_action_verification_from_risk": "R2",
+    "unknown_non_idempotent_effect_requires_reconciliation": true
+  },
+  "evals": {
+    "enabled": true,
+    "dataset_dir": "evals/datasets",
+    "thresholds": "evals/thresholds.json",
+    "fail_on_critical": true,
+    "live_model_required_for_v1": true,
+    "production_shadow_required_for_v1": true,
+    "frozen_corpus_version": "0.6.0"
+  },
+  "routing": {
+    "mode": "multi_axis",
+    "risk_requires_action_intent": true
+  },
+  "memory": {
+    "auto_promote_to_canonical": false,
+    "temporal": true
+  }
+}

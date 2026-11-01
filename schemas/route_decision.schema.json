@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RouteDecision",
+  "type": "object",
+  "required": [
+    "task",
+    "domain",
+    "procedure",
+    "action",
+    "risk_floor",
+    "reasoning_policy"
+  ],
+  "properties": {
+    "task": {
+      "type": "string"
+    },
+    "domain": {
+      "enum": [
+        "GENERAL",
+        "SOFTWARE",
+        "DATA",
+        "FILESYSTEM",
+        "CREATIVE",
+        "DATABASE",
+        "OPERATIONS",
+        "SECURITY"
+      ]
+    },
+    "procedure": {
+      "enum": [
+        "EXPLAIN",
+        "RESEARCH",
+        "REVIEW",
+        "BUILD",
+        "DEBUG",
+        "ANALYZE",
+        "FILE_OPERATION",
+        "MIGRATE",
+        "CREATE",
+        "OPERATE"
+      ]
+    },
+    "action": {
+      "enum": [
+        "NONE",
+        "READ",
+        "LOCAL_MUTATION",
+        "EXTERNAL_MUTATION",
+        "COMMUNICATION",
+        "FINANCIAL",
+        "DESTRUCTIVE",
+        "DEPLOY"
+      ]
+    },
+    "risk_floor": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    "reasoning_policy": {
+      "type": "string"
+    },
+    "mutating": {
+      "type": "boolean"
+    }
+  }
+}

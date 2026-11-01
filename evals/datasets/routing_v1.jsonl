@@ -1,0 +1,32 @@
+{"id": "RT-001", "input": "Research current agent harness frameworks and compare sources", "expected_task": "RESEARCH", "kind": "positive"}
+{"id": "RT-002", "input": "Investigate the evidence for this technical claim", "expected_task": "RESEARCH", "kind": "positive"}
+{"id": "RT-003", "input": "The failing test crashes after refactor; find the root cause", "expected_task": "DEBUG", "kind": "positive"}
+{"id": "RT-004", "input": "Debug why this code is not working", "expected_task": "DEBUG", "kind": "positive"}
+{"id": "RT-005", "input": "Implement a parser and test it", "expected_task": "BUILD", "kind": "positive"}
+{"id": "RT-006", "input": "Build a small Python module", "expected_task": "BUILD", "kind": "positive"}
+{"id": "RT-007", "input": "Audit this design for security weaknesses", "expected_task": "REVIEW", "kind": "positive"}
+{"id": "RT-008", "input": "Stress-test this architecture", "expected_task": "REVIEW", "kind": "positive"}
+{"id": "RT-009", "input": "Analyze this CSV dataset", "expected_task": "DATA", "kind": "positive"}
+{"id": "RT-010", "input": "Clean the spreadsheet data", "expected_task": "DATA", "kind": "positive"}
+{"id": "RT-011", "input": "Rename and organize these files", "expected_task": "FILE", "kind": "positive"}
+{"id": "RT-012", "input": "Create a ZIP from this folder", "expected_task": "FILE", "kind": "positive"}
+{"id": "RT-013", "input": "Migrate the database to a new schema", "expected_task": "MIGRATION", "kind": "positive"}
+{"id": "RT-014", "input": "Move database records to the new system", "expected_task": "MIGRATION", "kind": "positive"}
+{"id": "RT-015", "input": "Write chapter 8 while preserving canon", "expected_task": "CREATIVE", "kind": "positive"}
+{"id": "RT-016", "input": "Develop the worldbuilding for this novel", "expected_task": "CREATIVE", "kind": "positive"}
+{"id": "RT-017", "input": "Deploy this build to production", "expected_task": "HIGH_RISK", "kind": "positive"}
+{"id": "RT-018", "input": "Delete the production database", "expected_task": "HIGH_RISK", "kind": "positive"}
+{"id": "RT-019", "input": "Send email to the client now", "expected_task": "HIGH_RISK", "kind": "positive"}
+{"id": "RT-020", "input": "Transfer money to the supplier", "expected_task": "HIGH_RISK", "kind": "positive"}
+{"id": "RT-021", "input": "What is idempotency?", "expected_task": "FACT_QUERY", "kind": "negative_control"}
+{"id": "RT-022", "input": "Explain dependency injection", "expected_task": "FACT_QUERY", "kind": "negative_control"}
+{"id": "RT-023", "input": "Explain what production deployment means", "expected_task": "FACT_QUERY", "kind": "risk_word_negative_control"}
+{"id": "RT-024", "input": "Research safe database deletion strategies without deleting anything", "expected_task": "RESEARCH", "kind": "risk_word_negative_control"}
+{"id": "RT-025", "input": "Review a policy about secret management; do not access any secrets", "expected_task": "REVIEW", "kind": "risk_word_negative_control"}
+{"id": "RT-026", "input": "What does publish mean in software packaging?", "expected_task": "FACT_QUERY", "kind": "risk_word_negative_control"}
+{"id": "RT-027", "input": "Compare email sending APIs conceptually; do not send messages", "expected_task": "RESEARCH", "kind": "risk_word_negative_control"}
+{"id": "RT-028", "input": "Explain how payment systems achieve idempotency", "expected_task": "FACT_QUERY", "kind": "risk_word_negative_control"}
+{"id": "RT-029", "input": "Research why the test fails; do not change code", "expected_task": "RESEARCH", "kind": "boundary"}
+{"id": "RT-030", "input": "Audit the failing test and recommend fixes without patching", "expected_task": "REVIEW", "kind": "boundary"}
+{"id": "RT-031", "input": "Analyze data and build a chart", "expected_task": "DATA", "kind": "boundary"}
+{"id": "RT-032", "input": "Review chapter continuity and canon conflicts", "expected_task": "CREATIVE", "kind": "boundary"}

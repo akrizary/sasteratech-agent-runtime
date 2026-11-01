@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RuntimeRequest",
+  "type": "object",
+  "required": [
+    "run_id",
+    "packet_id",
+    "task_id",
+    "role",
+    "model",
+    "prompt",
+    "instructions",
+    "budget"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "packet_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "instructions": {
+      "type": "string"
+    },
+    "context_text": {
+      "type": "string"
+    },
+    "message_history_json": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "model": {
+      "type": "object",
+      "required": [
+        "alias",
+        "adapter_id"
+      ],
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "adapter_id": {
+          "type": "string"
+        },
+        "model_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_env": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

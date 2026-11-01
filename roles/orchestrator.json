@@ -1,0 +1,43 @@
+{
+  "role": "ORCHESTRATOR",
+  "allowed_tasks": [
+    "FACT_QUERY",
+    "RESEARCH",
+    "BUILD",
+    "DEBUG",
+    "REVIEW",
+    "DATA",
+    "FILE",
+    "MIGRATION",
+    "OPERATIONS",
+    "CREATIVE",
+    "HIGH_RISK"
+  ],
+  "risk_ceiling": "R4",
+  "allow_tools": [
+    "policy.read",
+    "evidence.read",
+    "memory.read",
+    "plan.read",
+    "plan.write"
+  ],
+  "deny_tools": [
+    "file.write",
+    "shell.*",
+    "deploy.*",
+    "email.send",
+    "payment.*"
+  ],
+  "may_delegate_to": [
+    "RESEARCHER",
+    "BUILDER",
+    "DEBUGGER",
+    "REVIEWER",
+    "VERIFIER",
+    "RISK_GUARDIAN",
+    "MEMORY_CURATOR",
+    "SYNTHESIZER",
+    "DOMAIN_SPECIALIST"
+  ],
+  "independent_review": false
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ActionIntent",
+  "type": "object",
+  "required": [
+    "worker_id",
+    "role",
+    "tool_id",
+    "resource",
+    "requested_risk",
+    "purpose"
+  ],
+  "properties": {
+    "worker_id": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "tool_id": {
+      "type": "string"
+    },
+    "resource": {
+      "type": "string"
+    },
+    "requested_risk": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "approval_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{"id": "R-001", "input": "Research the best agent harness frameworks and compare evidence", "task": "RESEARCH", "negative_control": false}
+{"id": "D-001", "input": "The unit test fails after the refactor; find the root cause", "task": "DEBUG", "negative_control": false}
+{"id": "HR-001", "input": "Deploy this to production now", "task": "HIGH_RISK", "negative_control": false}
+{"id": "C-001", "input": "Write chapter 8 while preserving canon", "task": "CREATIVE", "negative_control": false}
+{"id": "F-001", "input": "What does idempotency mean?", "task": "FACT_QUERY", "negative_control": true}

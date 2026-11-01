@@ -1,0 +1,72 @@
+{
+  "profiles": [
+    {
+      "alias": "deepseek_flash",
+      "adapter_id": "pydantic_ai",
+      "model_id": "deepseek:deepseek-flash",
+      "credential_env": "DEEPSEEK_API_KEY",
+      "allowed_roles": [
+        "RESEARCHER"
+      ],
+      "enabled": true,
+      "metadata": {
+        "validation_default": true,
+        "no_tool_only": true
+      }
+    },
+    {
+      "alias": "orchestrator_default",
+      "adapter_id": "pydantic_ai",
+      "model_env": "SASTERATECH_MODEL_ORCHESTRATOR",
+      "allowed_roles": [
+        "ORCHESTRATOR"
+      ],
+      "enabled": true
+    },
+    {
+      "alias": "research_default",
+      "adapter_id": "pydantic_ai",
+      "model_env": "SASTERATECH_MODEL_RESEARCH",
+      "allowed_roles": [
+        "RESEARCHER",
+        "DOMAIN_SPECIALIST",
+        "SYNTHESIZER"
+      ],
+      "enabled": true
+    },
+    {
+      "alias": "build_default",
+      "adapter_id": "pydantic_ai",
+      "model_env": "SASTERATECH_MODEL_BUILD",
+      "allowed_roles": [
+        "BUILDER",
+        "DEBUGGER"
+      ],
+      "enabled": true
+    },
+    {
+      "alias": "review_default",
+      "adapter_id": "pydantic_ai",
+      "model_env": "SASTERATECH_MODEL_REVIEW",
+      "allowed_roles": [
+        "REVIEWER",
+        "VERIFIER",
+        "RISK_GUARDIAN",
+        "MEMORY_CURATOR"
+      ],
+      "enabled": true
+    }
+  ],
+  "role_defaults": {
+    "ORCHESTRATOR": "orchestrator_default",
+    "RESEARCHER": "research_default",
+    "DOMAIN_SPECIALIST": "research_default",
+    "SYNTHESIZER": "research_default",
+    "BUILDER": "build_default",
+    "DEBUGGER": "build_default",
+    "REVIEWER": "review_default",
+    "VERIFIER": "review_default",
+    "RISK_GUARDIAN": "review_default",
+    "MEMORY_CURATOR": "review_default"
+  }
+}

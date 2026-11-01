@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskPacket",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "run_id",
+    "task_id",
+    "objective",
+    "task_class",
+    "assigned_role",
+    "risk_ceiling",
+    "requested_tools",
+    "depth"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string"
+    },
+    "parent_packet_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "task_class": {
+      "type": "string"
+    },
+    "assigned_role": {
+      "type": "string"
+    },
+    "risk_ceiling": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    "requested_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "depth": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "producer_worker_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "max_tool_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_model_requests": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_context_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "max_cost_usd": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        }
+      }
+    }
+  }
+}

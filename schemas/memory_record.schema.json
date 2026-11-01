@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalMemoryRecord",
+  "type": "object",
+  "required": [
+    "memory_id",
+    "content",
+    "kind",
+    "transaction_time"
+  ],
+  "properties": {
+    "memory_id": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "valid_from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "valid_to": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "superseded_by": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "transaction_time": {
+      "type": "string"
+    },
+    "scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

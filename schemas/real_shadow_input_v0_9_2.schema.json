@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SasteraTech Agent Runtime v0.9.2 live real-shadow input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "prompt", "reference_actions", "risks", "source"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "prompt": {"type": "string", "minLength": 1},
+    "context": {"type": "string"},
+    "reference_actions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "risks": {"type": "object", "additionalProperties": {"type": "string"}},
+    "source": {"type": "object"}
+  },
+  "not": {"required": ["proposed"]}
+}
