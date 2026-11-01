@@ -1,6 +1,10 @@
 """Regenerate the canonical package manifest from tracked package files."""
-from hashlib import sha256
 from pathlib import Path
+
+try:
+    from manifest_contract import manifest_sha256
+except ModuleNotFoundError:  # pragma: no cover - module import form
+    from scripts.manifest_contract import manifest_sha256
 
 ROOT = Path(__file__).parents[1]
 EXCLUDED_PARTS = {
@@ -22,6 +26,6 @@ files = sorted(
     path for path in ROOT.rglob("*")
     if path.is_file() and is_manifested(path)
 )
-lines = [f"{sha256(path.read_bytes()).hexdigest()}  {path.relative_to(ROOT).as_posix()}" for path in files]
+lines = [f"{manifest_sha256(path)}  {path.relative_to(ROOT).as_posix()}" for path in files]
 (ROOT / "MANIFEST.sha256").write_text("\n".join(lines) + "\n", encoding="utf-8")
 print(f"wrote {len(lines)} manifest entries")

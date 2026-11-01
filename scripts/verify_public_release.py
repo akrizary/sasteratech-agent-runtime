@@ -8,6 +8,11 @@ import re
 import tomllib
 from pathlib import Path
 
+try:
+    from manifest_contract import manifest_sha256
+except ModuleNotFoundError:  # pragma: no cover - module import form
+    from scripts.manifest_contract import manifest_sha256
+
 
 ROOT = Path(__file__).parents[1]
 FORBIDDEN_TOP_LEVEL = {".venv", "evidence", "state", "live_inputs"}
@@ -134,7 +139,7 @@ def main() -> None:
             failures.append("manifest path set does not equal publishable file set")
         for relative, digest in recorded.items():
             path = ROOT / relative
-            if path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            if path.is_file() and manifest_sha256(path) != digest:
                 failures.append(f"manifest digest mismatch: {relative}")
     else:
         failures.append("MANIFEST.sha256 is missing")

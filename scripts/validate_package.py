@@ -7,6 +7,11 @@ import hashlib
 import json
 from pathlib import Path
 
+try:
+    from manifest_contract import manifest_sha256
+except ModuleNotFoundError:  # pragma: no cover - module import form
+    from scripts.manifest_contract import manifest_sha256
+
 
 ROOT = Path(__file__).parents[1]
 REQUIRED = {
@@ -60,7 +65,7 @@ def main() -> None:
             continue
         expected, relative = line.split("  ", 1)
         path = ROOT / relative
-        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+        if not path.is_file() or manifest_sha256(path) != expected:
             mismatches.append(relative)
     if mismatches:
         raise SystemExit("FAIL manifest mismatch:\n- " + "\n- ".join(mismatches))
