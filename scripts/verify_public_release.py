@@ -36,6 +36,8 @@ def lock_components() -> dict[str, str]:
 
 def eligible_for_manifest(path: Path) -> bool:
     relative = path.relative_to(ROOT)
+    if relative.parts and relative.parts[0] in SCANNER_EXCLUDED_TOP_LEVEL:
+        return False
     if path.name in {"MANIFEST.sha256", "public_release_verification.json"}:
         return False
     if any(part in FORBIDDEN_PARTS | FORBIDDEN_TOP_LEVEL for part in relative.parts):
