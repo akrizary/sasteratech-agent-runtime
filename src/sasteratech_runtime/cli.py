@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Sequence
 
 from .local_api import local_status
+from .skill_security import report_to_sarif, scan_skill
 from .state_paths import resolve_state_dir
 
 
@@ -60,11 +61,27 @@ def build_parser() -> argparse.ArgumentParser:
     ):
         command = subparsers.add_parser(name, help=help_text)
         command.add_argument("--state-dir", type=Path)
+    scan = subparsers.add_parser(
+        "scan-skill",
+        help="scan one local skill directory without executing it",
+    )
+    scan.add_argument("target", type=Path)
+    scan.add_argument("--policy", type=Path)
+    scan.add_argument("--format", choices=("json", "sarif"), default="json")
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "scan-skill":
+        try:
+            report = scan_skill(args.target, args.policy)
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            print(json.dumps({"status": "ERROR", "error": str(exc)}, sort_keys=True), file=sys.stderr)
+            return 2
+        payload = report_to_sarif(report) if args.format == "sarif" else report
+        print(json.dumps(payload, indent=2, sort_keys=True))
+        return 0 if report["verdict"] == "PASS" else 1
     state_dir = resolve_state_dir(args.state_dir)
     if args.command == "doctor":
         print(json.dumps(doctor_payload(state_dir), indent=2, sort_keys=True))

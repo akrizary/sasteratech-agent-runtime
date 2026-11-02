@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 import tomllib
+import sys
 from pathlib import Path
 
 try:
@@ -15,6 +16,10 @@ except ModuleNotFoundError:  # pragma: no cover - module import form
 
 
 ROOT = Path(__file__).parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from sasteratech_runtime.skill_security import scan_skill  # noqa: E402
+
 FORBIDDEN_TOP_LEVEL = {".venv", "evidence", "state", "live_inputs"}
 SCANNER_EXCLUDED_TOP_LEVEL = {".git"}
 FORBIDDEN_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
@@ -26,6 +31,9 @@ REQUIRED = {
     "CODE_OF_CONDUCT.md", "PROVENANCE.md", "THIRD_PARTY_NOTICES.md",
     "RELEASE_CHECKLIST.md", "sbom.cdx.json", "pyproject.toml",
     "requirements/runtime-lock.txt", "src/sasteratech_runtime/__init__.py",
+    "src/sasteratech_runtime/skill_security.py", "scripts/verify_skill_security.py",
+    "schemas/skill_scan_report.schema.json", "config/skill_security.json",
+    "docs/SKILL_SECURITY_GATE.md", ".github/workflows/skill-security.yml",
 }
 
 
@@ -109,6 +117,18 @@ def main() -> None:
         licence = (ROOT / "LICENSE").read_text(encoding="utf-8")
         if "Apache License" not in licence or "Version 2.0, January 2004" not in licence:
             failures.append("LICENSE is not recognizable Apache-2.0 text")
+
+    security_policy = ROOT / "config" / "skill_security.json"
+    if security_policy.is_file() and (ROOT / "skills").is_dir():
+        skill_directories = sorted(path for path in (ROOT / "skills").iterdir() if path.is_dir())
+        if not skill_directories:
+            failures.append("no bundled skills found for deterministic security gate")
+        for skill_directory in skill_directories:
+            report = scan_skill(skill_directory, security_policy)
+            if report["verdict"] != "PASS":
+                failures.append(
+                    f"skill security gate {report['verdict']}: {skill_directory.name}"
+                )
 
     locked = lock_components()
     if (ROOT / "sbom.cdx.json").is_file():

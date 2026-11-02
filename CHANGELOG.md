@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.1.0a2 — 2026-11-02
+
+- Added the dependency-free SasteraTech Capability Gate for bounded local skill
+  contract, permission, prompt-injection, dangerous-code and provenance checks.
+- Added deterministic JSON and SARIF output with fail-closed `REJECT` and
+  `INCOMPLETE` verdicts.
+- Added adversarial skill-security fixtures and made bundled-skill scanning part
+  of the offline public-release gate.
+- Added an isolated release-CI job for NVIDIA SkillSpector, pinned to an exact
+  upstream revision with LLM analysis disabled and no provider credentials.
+- Kept remote ingestion, arbitrary-path MCP scanning, automatic repair and LLM
+  semantic scanning disabled.
+
 ## v1.1.0a1 — 2026-11-01
 
 - Added the installed `sasteratech-runtime` CLI with read-only `doctor` and
