@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SasteraTechSkillScanReport",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "scanner",
+    "target",
+    "verdict",
+    "highest_severity",
+    "analysis_complete",
+    "capabilities_observed",
+    "finding_counts",
+    "findings",
+    "limitations",
+    "inventory"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "scanner": {"const": "sasteratech-capability-gate"},
+    "target": {"type": "string"},
+    "root_sha256": {"type": ["string", "null"]},
+    "verdict": {"enum": ["PASS", "CAUTION", "REJECT", "INCOMPLETE"]},
+    "highest_severity": {"enum": ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+    "analysis_complete": {"type": "boolean"},
+    "capabilities_observed": {"type": "array", "items": {"type": "string"}},
+    "finding_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "severity", "path", "line", "message", "evidence", "fingerprint"],
+        "properties": {
+          "rule_id": {"type": "string"},
+          "severity": {"enum": ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+          "path": {"type": "string"},
+          "line": {"type": "integer", "minimum": 0},
+          "message": {"type": "string"},
+          "evidence": {"type": "string"},
+          "fingerprint": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "inventory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "bytes", "sha256"],
+        "properties": {
+          "path": {"type": "string"},
+          "bytes": {"type": "integer", "minimum": 0},
+          "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

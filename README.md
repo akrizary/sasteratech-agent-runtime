@@ -20,6 +20,8 @@ their own credential, and runs an explicitly networked command.
 - frozen offline evaluation datasets and regression gates;
 - live-provider validation scripts that remain opt-in; and
 - recovery, evidence and release-gate utilities.
+- a deterministic local skill-capability scanner plus an independent external
+  release-CI scan.
 
 ## Safety boundary
 
@@ -65,7 +67,7 @@ disabled in this phase. See `docs/LOCAL_API_RUNBOOK.md`.
 
 ## Installed CLI and agent clients
 
-Version `1.1.0a1` adds the `sasteratech-runtime` command and a local stdio MCP
+Version `1.1.0a2` provides the `sasteratech-runtime` command and a local stdio MCP
 adapter for Codex and Claude Code. The exposed MCP tools are read-only: runtime
 health, redacted status, and run-contract validation. They cannot retrieve
 credentials, call a provider, execute a mutation tool, or access the network.
@@ -74,10 +76,13 @@ credentials, call a provider, execute a mutation tool, or access the network.
 .\.venv\Scripts\python.exe -m pip install -e ".[mcp]"
 sasteratech-runtime doctor
 sasteratech-runtime status
+sasteratech-runtime scan-skill .\skills\example_research
 ```
 
 See `docs/CLI_MCP_QUICKSTART.md` for client configuration and state-directory
-precedence.
+precedence. The `scan-skill` command is local, deterministic, static-only, and
+does not execute target code. See `docs/SKILL_SECURITY_GATE.md` for its evidence
+limits and the isolated NVIDIA SkillSpector release-CI boundary.
 
 ## Repository map
 
@@ -96,7 +101,7 @@ public source distribution.
 
 ## Status and support boundary
 
-This is version `1.1.0a1` and should be treated as alpha software. Offline
+This is version `1.1.0a2` and should be treated as alpha software. Offline
 tests and historical provider evidence establish bounded behavior only; they
 do not prove universal provider compatibility, hosted-service security or
 production readiness. Review `SECURITY.md` before use with sensitive data.

@@ -45,6 +45,18 @@ history or a published artifact.
 - A green offline test does not prove hosted, multi-tenant, or production
   security.
 
+## Agent-skill intake
+
+Bundled skills must pass the deterministic SasteraTech Capability Gate and the
+independent external release-CI scan described in `docs/SKILL_SECURITY_GATE.md`.
+An incomplete scan is not a clean scan. Neither scanner executes target code,
+and neither replaces sandboxing, provenance review, runtime permissions, or
+human review of high-impact capabilities.
+
+The external scanner runs without LLM credentials. It may query OSV.dev with
+declared dependency names and versions, so private skills and customer content
+must not be placed in that public-repository workflow.
+
 ## Supported versions
 
 No released version is currently supported. The first GitHub release must add

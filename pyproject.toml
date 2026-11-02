@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sasteratech-agent-runtime"
-version = "1.1.0a1"
+version = "1.1.0a2"
 description = "Auditable, provider-neutral agent runtime with local BYOK controls"
 readme = "README.md"
 requires-python = ">=3.11"

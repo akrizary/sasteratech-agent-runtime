@@ -34,6 +34,11 @@ This is useful negative evidence, not proof against every possible source.
   runtime lock and locally installed distribution metadata.
 - URLs and framework names in `SOURCE_REGISTER.md`: factual citations and
   attribution; referenced source code is not vendored by those citations.
+- NVIDIA SkillSpector is referenced and invoked as an unmodified, external CI
+  tool at an exact upstream revision. Its source is not copied, vendored, or
+  imported by the SasteraTech runtime. The internal capability gate is a
+  project-authored implementation derived from this project's own skill,
+  permission, evidence, and fail-closed contracts.
 
 ## AI assistance
 

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "limits": {
+    "max_entries": 4000,
+    "max_files": 1000,
+    "max_total_bytes": 10485760,
+    "max_file_bytes": 1048576,
+    "max_depth": 20
+  },
+  "gate": {
+    "blocking_verdicts": ["REJECT", "INCOMPLETE"],
+    "manual_review_verdicts": ["CAUTION"]
+  },
+  "external_scanner": {
+    "name": "NVIDIA SkillSpector",
+    "release": "v2.13.1",
+    "commit": "f3b25697d76256998ca9d42c198d256258d4c035",
+    "mode": "static-no-llm",
+    "required_in_release_ci": true
+  }
+}

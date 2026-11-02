@@ -1,0 +1,74 @@
+name: Skill security
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+jobs:
+  internal-capability-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+      - name: Run deterministic local gate
+        run: python scripts/verify_skill_security.py
+
+  external-skillspector:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up isolated Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+      - name: Set up uv without persistent cache
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          enable-cache: false
+      - name: Materialize exact SkillSpector source revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$RUNNER_TEMP/skillspector"
+          git init "$target"
+          git -C "$target" remote add origin https://github.com/NVIDIA/SkillSpector.git
+          git -C "$target" fetch --depth 1 origin f3b25697d76256998ca9d42c198d256258d4c035
+          test "$(git -C "$target" rev-parse FETCH_HEAD)" = "f3b25697d76256998ca9d42c198d256258d4c035"
+          git -C "$target" checkout --detach FETCH_HEAD
+      - name: Install from upstream frozen dependency lock
+        shell: bash
+        run: uv sync --directory "$RUNNER_TEMP/skillspector" --frozen --no-dev
+      - name: Scan bundled skills without LLM analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          for target in skills/*; do
+            [ -d "$target" ] || continue
+            name="$(basename "$target")"
+            "$RUNNER_TEMP/skillspector/.venv/bin/skillspector" scan "$target" \
+              --no-llm \
+              --fail-on-findings \
+              --fail-on-incomplete \
+              --format json \
+              --output "$RUNNER_TEMP/skillspector-$name.json"
+            python -m json.tool "$RUNNER_TEMP/skillspector-$name.json"
+          done
