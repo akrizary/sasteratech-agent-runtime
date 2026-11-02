@@ -124,6 +124,7 @@ class SkillSecurityTests(unittest.TestCase):
         self.assertIn("--no-llm", workflow)
         self.assertIn("--fail-on-findings", workflow)
         self.assertIn("--fail-on-incomplete", workflow)
+        self.assertNotIn("--min-coverage", workflow)
         self.assertIn("uv sync --directory \"$RUNNER_TEMP/skillspector\" --frozen --no-dev", workflow)
         self.assertIn("astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2", workflow)
         self.assertIn("permissions:\n  contents: read", workflow)
