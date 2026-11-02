@@ -6,7 +6,7 @@ SECRET_ENV_NAMES = (
     'OPENAI_API_KEY','ANTHROPIC_API_KEY','GOOGLE_API_KEY','GEMINI_API_KEY',
     'OPENROUTER_API_KEY','DEEPSEEK_API_KEY','AZURE_OPENAI_API_KEY','AWS_ACCESS_KEY_ID','AWS_SECRET_ACCESS_KEY'
 )
-ARTIFACT_VERSION = '1.1.0a0'
+ARTIFACT_VERSION = '1.1.0a1'
 
 def live_run_directory(root, run_id=None):
     """Return a new immutable live-evidence directory for one validation run."""

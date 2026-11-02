@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sasteratech-agent-runtime"
-version = "1.1.0a0"
+version = "1.1.0a1"
 description = "Auditable, provider-neutral agent runtime with local BYOK controls"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -32,6 +32,10 @@ pydantic-runtime = ["pydantic-ai==2.63.0", "pydantic-ai-harness==0.63.0"]
 evals = ["pydantic-evals"]
 otel = ["opentelemetry-api", "opentelemetry-sdk"]
 local-byok = ["keyring>=25.7,<26"]
+mcp = ["mcp==2.3.0"]
+
+[project.scripts]
+sasteratech-runtime = "sasteratech_runtime.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

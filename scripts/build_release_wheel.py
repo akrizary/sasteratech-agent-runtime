@@ -72,6 +72,11 @@ def main() -> None:
         "Tag: py3-none-any\n"
     ).encode("utf-8")
     wheel_files[f"{dist_info}/top_level.txt"] = b"sasteratech_runtime\n"
+    scripts = project.get("scripts", {})
+    if scripts:
+        entry_points = ["[console_scripts]"]
+        entry_points.extend(f"{name} = {target}" for name, target in sorted(scripts.items()))
+        wheel_files[f"{dist_info}/entry_points.txt"] = ("\n".join(entry_points) + "\n").encode("utf-8")
     wheel_files[f"{dist_info}/licenses/LICENSE"] = (ROOT / "LICENSE").read_bytes()
 
     record_path = f"{dist_info}/RECORD"

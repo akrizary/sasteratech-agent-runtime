@@ -106,8 +106,10 @@ def local_status(state: Path) -> dict[str, Any]:
     def query(name: str, sql: str) -> list[tuple]:
         db = state / name
         if not db.exists(): return []
-        con = sqlite3.connect(db)
-        try: return con.execute(sql).fetchall()
+        con = sqlite3.connect(f"file:{db.as_posix()}?mode=ro", uri=True)
+        try:
+            con.execute("PRAGMA query_only=ON")
+            return con.execute(sql).fetchall()
         finally: con.close()
     return {
         "network_scope": "LOOPBACK_ONLY", "provider_dispatch": "DISABLED",
