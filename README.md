@@ -30,7 +30,33 @@ permissions, risk, budgets and approvals before any registered tool may run.
 The current local API exposes no mutation tools and keeps provider dispatch
 disabled. A green offline test run does not authorize production deployment.
 
-## Quick start: offline core
+## Install the public alpha release
+
+The published `v1.1.0a2` wheel is available from GitHub Releases. The URL is
+bound to the verified wheel SHA-256 so pip rejects changed bytes.
+
+Windows PowerShell:
+
+```powershell
+$wheel = "https://github.com/akrizary/sasteratech-agent-runtime/releases/download/v1.1.0a2/sasteratech_agent_runtime-1.1.0a2-py3-none-any.whl#sha256=adb689e9a75c1b80e473e740ba4e09ae21a55b84145e30e7be363fc10c29edb3"
+py -3.13 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install $wheel
+.\.venv\Scripts\sasteratech-runtime.exe doctor
+.\.venv\Scripts\sasteratech-runtime.exe status
+```
+
+For the read-only Codex and Claude MCP adapter, replace the install command
+with:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install "sasteratech-agent-runtime[mcp] @ $wheel"
+```
+
+On Linux or macOS, use `python3 -m venv .venv`, `.venv/bin/python`, and
+`.venv/bin/sasteratech-runtime`. This is an alpha prerelease; provider dispatch
+and mutation tools remain disabled.
+
+## Developer quick start: source checkout
 
 Windows PowerShell:
 
