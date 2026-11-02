@@ -63,6 +63,22 @@ to the local machine; status and run-contract endpoints require a bearer token
 stored in the OS credential manager. Provider dispatch and mutation tools are
 disabled in this phase. See `docs/LOCAL_API_RUNBOOK.md`.
 
+## Installed CLI and agent clients
+
+Version `1.1.0a1` adds the `sasteratech-runtime` command and a local stdio MCP
+adapter for Codex and Claude Code. The exposed MCP tools are read-only: runtime
+health, redacted status, and run-contract validation. They cannot retrieve
+credentials, call a provider, execute a mutation tool, or access the network.
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[mcp]"
+sasteratech-runtime doctor
+sasteratech-runtime status
+```
+
+See `docs/CLI_MCP_QUICKSTART.md` for client configuration and state-directory
+precedence.
+
 ## Repository map
 
 - `src/sasteratech_runtime/` — runtime, policy, storage and adapter code;
@@ -80,7 +96,7 @@ public source distribution.
 
 ## Status and support boundary
 
-This is version `1.1.0a0` and should be treated as alpha software. Offline
+This is version `1.1.0a1` and should be treated as alpha software. Offline
 tests and historical provider evidence establish bounded behavior only; they
 do not prove universal provider compatibility, hosted-service security or
 production readiness. Review `SECURITY.md` before use with sensitive data.

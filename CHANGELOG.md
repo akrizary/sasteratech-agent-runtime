@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.0a1 — 2026-11-01
+
+- Added the installed `sasteratech-runtime` CLI with read-only `doctor` and
+  redacted `status` commands.
+- Added a local stdio MCP adapter for Codex and Claude Code with exactly three
+  read-only tools and no provider dispatch, credential access, network action,
+  or mutation capability.
+- Added portable, non-creating state-directory discovery and public onboarding
+  documentation.
+- Added the MCP SDK as an exact optional dependency and cross-platform contract
+  coverage using the hashed runtime environment.
+
 ## v1.1.0a0 — 2026-10-30
 
 - Created as a separate working package; v1.0 remains an immutable evidence release.

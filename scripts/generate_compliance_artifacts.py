@@ -115,7 +115,7 @@ def main() -> None:
             "component": {
                 "type": "application",
                 "name": "sasteratech-agent-runtime",
-                "version": "1.1.0a0",
+                "version": "1.1.0a1",
                 "licenses": [{"license": {"id": "Apache-2.0"}}],
             },
         },
