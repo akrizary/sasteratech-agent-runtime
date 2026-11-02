@@ -11,12 +11,14 @@ publish, deploy or create external accounts.
 - [x] `THIRD_PARTY_NOTICES.md` contains no unknown licence.
 - [x] No evidence, state, database, virtual environment, archive or secret is
       present in the publishable tree.
-- [ ] Repository name, package name and import namespace are available at the
-      time of publication.
-- [ ] The owner manually searches WIPO and relevant national trademark
-      databases for exact and confusingly similar marks.
-- [ ] GitHub private vulnerability reporting is enabled.
-- [ ] Branch protection and required CI are configured.
-- [ ] The exact commit intended for release passes CI.
-- [ ] Publication receives a separate deployment approval.
+- [x] The public repository, distribution identity and import namespace were
+      confirmed through the published wheel installation.
+- [x] The owner attested that manual trademark searches found no concerning
+      similar marks; this is not a legal clearance opinion.
+- [x] GitHub private vulnerability reporting is enabled.
+- [x] `main` has strict Windows and Ubuntu required CI, admin enforcement,
+      linear history, conversation resolution and no force-push or deletion.
+- [x] Exact tag commit `e251282f66d2111b83ccd64d04417d11e6d451ec`
+      passed tag-triggered Windows, Ubuntu and skill-security CI.
+- [x] The GitHub prerelease received a separate scoped deployment approval.
 

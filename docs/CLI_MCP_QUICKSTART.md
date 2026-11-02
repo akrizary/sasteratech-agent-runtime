@@ -4,7 +4,26 @@ This alpha adapter lets local Codex and Claude Code sessions inspect the
 SasteraTech runtime and validate proposed run contracts. It does not expose
 credentials, call a model, dispatch a provider, execute tools, or mutate files.
 
-## Install from source
+## Install the public alpha release
+
+Create a virtual environment and install the checksum-bound public wheel with
+its exact MCP SDK dependency:
+
+```powershell
+$wheel = "https://github.com/akrizary/sasteratech-agent-runtime/releases/download/v1.1.0a2/sasteratech_agent_runtime-1.1.0a2-py3-none-any.whl#sha256=adb689e9a75c1b80e473e740ba4e09ae21a55b84145e30e7be363fc10c29edb3"
+py -3.13 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install "sasteratech-agent-runtime[mcp] @ $wheel"
+```
+
+Linux or macOS:
+
+```bash
+wheel='https://github.com/akrizary/sasteratech-agent-runtime/releases/download/v1.1.0a2/sasteratech_agent_runtime-1.1.0a2-py3-none-any.whl#sha256=adb689e9a75c1b80e473e740ba4e09ae21a55b84145e30e7be363fc10c29edb3'
+python3 -m venv .venv
+.venv/bin/python -m pip install "sasteratech-agent-runtime[mcp] @ ${wheel}"
+```
+
+## Install from a source checkout
 
 Create a virtual environment, then install the package with its exact MCP SDK:
 
@@ -13,8 +32,9 @@ py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[mcp]"
 ```
 
-On Linux or macOS, use `.venv/bin/python` instead. The published wheel may be
-installed with `pip`; MCP remains an optional extra.
+The editable form is intended for contributors. End users should prefer the
+checksum-bound public wheel above. MCP remains an optional extra; omit `[mcp]`
+when only the core CLI is needed.
 
 ## Check the installation
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added checksum-bound GitHub Release installation instructions for the core
+  CLI and optional read-only MCP adapter.
+- Recorded the anonymous public-wheel install and real MCP stdio canary for
+  `v1.1.0a2` without changing the immutable release tag.
+
 ## v1.1.0a2 — 2026-11-02
 
 - Added the dependency-free SasteraTech Capability Gate for bounded local skill
