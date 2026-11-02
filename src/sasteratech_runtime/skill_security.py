@@ -11,6 +11,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -35,6 +36,7 @@ CAPABILITY_MINIMUM_RISK = {
     "deploy.execute": 3,
 }
 DEFAULT_LIMITS = {
+    "max_entries": 4000,
     "max_files": 1000,
     "max_total_bytes": 10 * 1024 * 1024,
     "max_file_bytes": 1024 * 1024,
@@ -106,15 +108,21 @@ def _load_policy(path: Path | None) -> dict[str, int]:
     return limits
 
 
-def _is_defensive(line: str) -> bool:
-    lowered = " ".join(line.lower().split())
-    defensive = (
-        "do not execute", "do not run", "do not reveal", "do not send",
-        "do not access", "do not ignore", "do not call", "do not deploy",
-        "must not execute", "must not reveal", "must not send",
-        "forbidden to execute", "forbidden to reveal", "forbidden tool",
-    )
-    return any(phrase in lowered for phrase in defensive)
+_CLAUSE_BOUNDARY = re.compile(r"(?:[.;!?]\s*|\b(?:and|but|then|however)\b\s*)", re.I)
+_DEFENSIVE_PREFIX = re.compile(
+    r"(?:\bdo\s+not|\bdon't|\bmust\s+not|\bnever|\bforbidden\s+to|\bprohibited\s+to)"
+    r"\s+(?:[\w-]+\s+){0,4}$",
+    re.I,
+)
+
+
+def _match_is_defensive(line: str, match: re.Match[str]) -> bool:
+    """Return true only when a negation governs this exact matched clause."""
+    clause_start = 0
+    for boundary in _CLAUSE_BOUNDARY.finditer(line, 0, match.start()):
+        clause_start = boundary.end()
+    prefix = " ".join(line[clause_start:match.start()].split())
+    return bool(_DEFENSIVE_PREFIX.search(prefix + (" " if prefix else "")))
 
 
 def _line_findings(path: str, text: str) -> tuple[list[Finding], set[str]]:
@@ -135,16 +143,15 @@ def _line_findings(path: str, text: str) -> tuple[list[Finding], set[str]]:
         ("deploy.execute", re.compile(r"(?:deploy\.execute|\bgit\s+push\b|\bgh\s+release\b|publish\s+(?:package|release))", re.I)),
     )
     for number, raw in enumerate(text.splitlines(), 1):
-        defensive = _is_defensive(raw)
         if any(pattern.search(raw) for pattern in SECRET_PATTERNS):
             findings.append(_finding("SCG-SE-001", "CRITICAL", path, "possible secret literal embedded in skill content", line=number, evidence=raw.strip()))
         for rule_id, severity, regex, message in patterns:
-            if regex.search(raw) and not defensive:
-                findings.append(_finding(rule_id, severity, path, message, line=number, evidence=raw.strip()))
-        if not defensive:
-            for capability, regex in capability_patterns:
-                if regex.search(raw):
-                    capabilities.add(capability)
+            for match in regex.finditer(raw):
+                if not _match_is_defensive(raw, match):
+                    findings.append(_finding(rule_id, severity, path, message, line=number, evidence=raw.strip()))
+        for capability, regex in capability_patterns:
+            if any(not _match_is_defensive(raw, match) for match in regex.finditer(raw)):
+                capabilities.add(capability)
     if any(character in text for character in ("\u200b", "\u200c", "\u200d", "\u202a", "\u202b", "\u202d", "\u202e", "\u2066", "\u2067", "\u2068", "\u2069")):
         findings.append(_finding("SCG-OB-001", "HIGH", path, "hidden Unicode control character"))
     if re.search(r"(?<![A-Za-z0-9+/=])[A-Za-z0-9+/]{160,}={0,2}(?![A-Za-z0-9+/=])", text):
@@ -248,6 +255,78 @@ def _declared_capabilities(manifest: dict[str, Any]) -> set[str]:
     return declared
 
 
+def _manifest_content_findings(manifest: dict[str, Any]) -> tuple[list[Finding], set[str]]:
+    """Inspect manifest strings while keeping permission declarations declarative."""
+    findings: list[Finding] = []
+    capabilities: set[str] = set()
+    stack: list[tuple[tuple[str, ...], Any]] = [((), manifest)]
+    permission_fields = {"allowed_tools", "forbidden_tools"}
+    while stack:
+        field_path, value = stack.pop()
+        if isinstance(value, dict):
+            for key in sorted(value, reverse=True):
+                stack.append((field_path + (str(key),), value[key]))
+        elif isinstance(value, list):
+            for index in range(len(value) - 1, -1, -1):
+                stack.append((field_path + (str(index),), value[index]))
+        elif isinstance(value, str):
+            line_items, line_capabilities = _line_findings("skill.json", value)
+            findings.extend(line_items)
+            if not field_path or field_path[0] not in permission_fields:
+                capabilities.update(line_capabilities)
+    return findings, capabilities
+
+
+def _discover_files(
+    root: Path,
+    limits: dict[str, int],
+) -> tuple[list[Path], list[Finding], list[str], bool]:
+    """Discover package files without materializing an unbounded directory tree."""
+    files: list[Path] = []
+    findings: list[Finding] = []
+    limitations: list[str] = []
+    stack = [root]
+    entries_seen = 0
+
+    while stack:
+        directory = stack.pop()
+        child_directories: list[Path] = []
+        try:
+            with os.scandir(directory) as entries:
+                for entry in entries:
+                    entries_seen += 1
+                    if entries_seen > limits["max_entries"]:
+                        return [], [], [f"entry count limit exceeded: more than {limits['max_entries']}"], True
+                    path = Path(entry.path)
+                    relative_path = path.relative_to(root)
+                    relative = relative_path.as_posix()
+                    try:
+                        if entry.is_symlink():
+                            findings.append(_finding("SCG-IN-002", "HIGH", relative, "symbolic links are not allowed in skill packages"))
+                        elif entry.is_dir(follow_symlinks=False):
+                            if len(relative_path.parts) > limits["max_depth"]:
+                                limitations.append(f"path depth limit exceeded: {relative}")
+                            else:
+                                child_directories.append(path)
+                        elif entry.is_file(follow_symlinks=False):
+                            if len(relative_path.parts) > limits["max_depth"]:
+                                limitations.append(f"path depth limit exceeded: {relative}")
+                                continue
+                            files.append(path)
+                            if len(files) > limits["max_files"]:
+                                return [], [], [f"file count limit exceeded: more than {limits['max_files']}"], True
+                        else:
+                            limitations.append(f"unsupported filesystem entry was not inspected: {relative}")
+                    except OSError:
+                        limitations.append(f"filesystem entry could not be inspected: {relative}")
+        except OSError:
+            relative = directory.relative_to(root).as_posix() or "."
+            limitations.append(f"directory could not be inspected: {relative}")
+        stack.extend(sorted(child_directories, key=lambda item: item.as_posix(), reverse=True))
+
+    return sorted(files, key=lambda item: item.relative_to(root).as_posix()), findings, limitations, False
+
+
 def _validate_evals(text: str, skill_id: str | None) -> list[Finding]:
     findings: list[Finding] = []
     kinds: set[str] = set()
@@ -304,27 +383,40 @@ def scan_skill(target: Path | str, policy_path: Path | None = None) -> dict[str,
         }
 
     root = supplied.resolve()
-    files: list[Path] = []
+    files, traversal_findings, traversal_limitations, traversal_exhausted = _discover_files(root, limits)
+    findings.extend(traversal_findings)
+    limitations.extend(traversal_limitations)
+    if traversal_exhausted:
+        blocking = _finding(
+            "SCG-IN-003",
+            "HIGH",
+            ".",
+            "package traversal stopped at a configured resource limit",
+        )
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "scanner": SCANNER_NAME,
+            "target": root.name,
+            "root_sha256": None,
+            "verdict": "INCOMPLETE",
+            "highest_severity": "HIGH",
+            "analysis_complete": False,
+            "capabilities_observed": [],
+            "finding_counts": {"HIGH": 1},
+            "findings": [blocking.as_dict()],
+            "limitations": sorted(set(limitations)),
+            "inventory": [],
+        }
+
     total_bytes = 0
-    for path in sorted(root.rglob("*"), key=lambda item: item.as_posix()):
+    for path in files:
         relative = path.relative_to(root).as_posix()
-        if path.is_symlink():
-            findings.append(_finding("SCG-IN-002", "HIGH", relative, "symbolic links are not allowed in skill packages"))
-            continue
-        if not path.is_file():
-            continue
-        if len(files) >= limits["max_files"]:
-            limitations.append(f"file count limit exceeded: more than {limits['max_files']}")
-            break
-        files.append(path)
         size = path.stat().st_size
         total_bytes += size
         within_file_limit = size <= limits["max_file_bytes"]
         within_total_limit = total_bytes <= limits["max_total_bytes"]
         digest = _hash_file(path) if within_file_limit and within_total_limit else None
         inventory.append({"path": relative, "bytes": size, "sha256": digest})
-        if len(path.relative_to(root).parts) > limits["max_depth"]:
-            limitations.append(f"path depth limit exceeded: {relative}")
         if not within_file_limit:
             limitations.append(f"file size limit exceeded: {relative}")
             continue
@@ -352,6 +444,9 @@ def scan_skill(target: Path | str, policy_path: Path | None = None) -> dict[str,
         else:
             manifest_findings, manifest = _validate_manifest(parsed)
             findings.extend(manifest_findings)
+            content_findings, manifest_capabilities = _manifest_content_findings(manifest)
+            findings.extend(content_findings)
+            observed.update(manifest_capabilities)
     if "evals.jsonl" in texts:
         findings.extend(_validate_evals(texts["evals.jsonl"], manifest.get("id") if manifest else None))
 

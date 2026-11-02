@@ -40,14 +40,21 @@ the scanner itself cannot start or its policy is invalid.
 ## What the internal gate checks
 
 - required `SKILL.md`, `skill.json`, and `evals.jsonl` files;
-- manifest types, risk ceiling, tool conflicts, and wildcard permissions;
+- manifest types, string content, risk ceiling, tool conflicts, and wildcard
+  permissions; permission declarations are not mistaken for executed use;
 - positive and negative route-evaluation coverage;
-- bounded file count, size, depth, UTF-8 decoding, and unsupported content;
+- bounded filesystem-entry and file counts, size, depth, UTF-8 decoding, and
+  unsupported content; traversal stops before exceeding the configured entry
+  budget and prunes directories beyond the depth limit;
 - symlinks, hidden Unicode controls, encoded payloads, hidden instructions,
   prompt override, credential exfiltration, and destructive commands;
 - Python AST calls for dynamic evaluation, subprocess and shell execution;
 - mismatch between observed capabilities and declared `allowed_tools`; and
 - capabilities that exceed the declared risk ceiling.
+
+Defensive language suppresses a signature only when the negation governs that
+exact matched clause. A benign prohibition in one clause cannot hide an unsafe
+instruction later on the same line.
 
 Static analysis can produce false positives and false negatives. A clean scan
 does not replace code review, sandboxing, permission checks, provenance, or
