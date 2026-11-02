@@ -54,8 +54,9 @@ class CliAndStatePathTests(unittest.TestCase):
 
     def test_status_reads_existing_metadata_database_without_changing_it(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
-            state = pathlib.Path(temporary) / "state"
-            state.mkdir()
+            root = pathlib.Path(temporary)
+            state = root / "path#fragment" / "state"
+            state.mkdir(parents=True)
             database = state / "local_byok_metadata.db"
             connection = sqlite3.connect(database)
             try:
@@ -77,6 +78,7 @@ class CliAndStatePathTests(unittest.TestCase):
             status = json.loads(output.getvalue())
             self.assertEqual(status["credentials"], [["deepseek", "...1234", "ACTIVE"]])
             self.assertEqual(database.read_bytes(), before)
+            self.assertFalse((root / "path").exists())
 
 
 class McpContractTests(unittest.TestCase):

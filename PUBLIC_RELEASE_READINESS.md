@@ -23,11 +23,14 @@
 - Private-material exclusion: no evidence tree, state tree, local database,
   virtual environment, credential bundle, cache or release archive is present.
 - Wheel: two independent builds produced the same SHA-256:
-  `59e01eae32354763fd6c8dba06f79f92dad31510a9e50237ea5161cebcd97ab1`.
+  `1d149764f8c85e4c4583a81773af4c66aebfa7412004fd43512580626a2c6d69`.
 - Wheel installation: installed without dependency or index access; the
   `sasteratech-runtime` console command and version `1.1.0a1` were verified.
 - Installed CLI: `doctor` and `status` returned bounded JSON without creating
   a state directory or attempting network access.
+- SQLite read-only paths: a regression case containing URI-special `#` read
+  the intended database through an encoded file URI without creating a sibling
+  file or changing the database bytes.
 - Installed MCP contract: exactly `runtime_health`, `runtime_status`, and
   `validate_run_contract` were registered with read-only, non-destructive
   annotations using the locked MCP 2.3.0 SDK.
